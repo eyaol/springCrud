@@ -1,8 +1,8 @@
 package com.estudos.datatransferobject.service;
 
-import com.estudos.datatransferobject.dto.UserDTO;
-import com.estudos.datatransferobject.model.User;
+import com.estudos.datatransferobject.dto.UserRequest;
+import com.estudos.datatransferobject.entity.UserEntity;
 
 public interface UserService {
-    User createUser(UserDTO userDTO);
+    UserEntity createUser(UserRequest userRequest);
 }

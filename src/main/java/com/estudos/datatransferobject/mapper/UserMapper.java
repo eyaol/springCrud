@@ -1,22 +1,17 @@
 package com.estudos.datatransferobject.mapper;
 
-import com.estudos.datatransferobject.dto.UserDTO;
-import com.estudos.datatransferobject.model.User;
-import org.springframework.stereotype.Component;
+import com.estudos.datatransferobject.dto.UserRequest;
+import com.estudos.datatransferobject.entity.UserEntity;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
+import org.mapstruct.ReportingPolicy;
 
-import java.util.function.Function;
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
+        unmappedTargetPolicy = ReportingPolicy.ERROR)
+public interface UserMapper {
 
-@Component
-public class UserMapper implements Function<UserDTO, User> {
-
-    @Override
-    public User apply(UserDTO userDTO) {
-        User user = new User();
-        user.setName(userDTO.name());
-        user.setAge(userDTO.age());
-        user.setCpf(userDTO.cpf());
-
-        return user;
-    }
+    @Mapping(target = "dataAniversario", source = "date")
+    UserEntity convertToUserEntity(UserRequest userRequest);
 
 }
