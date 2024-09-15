@@ -18,17 +18,36 @@ repositories {
 }
 
 dependencies {
+	//SPRING JPA
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+	//SPRING WEB
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//SPRING VALIDATOR
+	implementation('org.springframework.boot:spring-boot-starter-validation')
+
+	//MYSQL CONNECTOR
+	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	//TEST
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//LOMBOK
 	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	//MAP STRUCT
 	implementation 'org.mapstruct:mapstruct:1.6.0'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.0'
+
+	//LOGBACK
+	implementation 'ch.qos.logback:logback-core:1.5.6'
+	implementation 'ch.qos.logback:logback-classic:1.5.6'
+
 }
+
 
 tasks.named('test') {
 	useJUnitPlatform()

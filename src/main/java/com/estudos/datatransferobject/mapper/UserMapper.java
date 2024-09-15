@@ -1,17 +1,24 @@
 package com.estudos.datatransferobject.mapper;
 
-import com.estudos.datatransferobject.dto.UserRequest;
-import com.estudos.datatransferobject.entity.UserEntity;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.ReportingPolicy;
+import com.estudos.datatransferobject.dto.CreateUserDto;
+import com.estudos.datatransferobject.dto.UpdateUserDto;
+import com.estudos.datatransferobject.entity.User;
+import org.mapstruct.*;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
+import java.time.Instant;
+
+@Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface UserMapper {
 
-    @Mapping(target = "dataAniversario", source = "date")
-    UserEntity convertToUserEntity(UserRequest userRequest);
+    @Mapping(target = "creationTimestamp", ignore = true)
+    @Mapping(target = "updateTimestamp", ignore = true)
+    @Mapping(target = "userId", ignore = true)
+    User toEntity(CreateUserDto userDto);
+
+    @AfterMapping
+    default void setCreationTimestamp(@MappingTarget User user) {
+        user.setCreationTimestamp(Instant.now());
+    }
 
 }
