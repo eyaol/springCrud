@@ -25,12 +25,12 @@ public class UserService {
 
     public UUID createUser(CreateUserDto userDto) {
 
-        var mappedUser = userMapper.toEntity(userDto);
         try {
-            userRepository.save(mappedUser);
+            User mappedUser = userMapper.toEntity(userDto);
+            User savedUser = userRepository.save(mappedUser);
 
             log.atInfo().setMessage("User created")
-                    .addKeyValue("username", mappedUser.getUsername())
+                    .addKeyValue("username", savedUser.getUsername())
                     .log();
 
             return mappedUser.getUserId();
@@ -45,7 +45,17 @@ public class UserService {
     }
 
     public List<User> getUsers() {
-        return userRepository.findAll();
+        try {
+            var listUsers = userRepository.findAll();
+
+            log.atInfo().setMessage("Users Found")
+                    .addKeyValue("users", listUsers)
+                    .log();
+
+            return listUsers;
+        } catch (Exception exception) {
+            throw new RuntimeException("Failed to find users");
+        }
     }
 
     public void deleteUsers(DeleteUserDto ids) {
