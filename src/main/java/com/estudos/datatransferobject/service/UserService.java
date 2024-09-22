@@ -58,8 +58,8 @@ public class UserService {
         }
     }
 
-    public void deleteUsers(DeleteUserDto ids) {
-        var uuidList = ids.ids().stream().map(UUID::fromString).toList();
+    public void deleteUsers(DeleteUserDto deleteUserDto) {
+        var uuidList = deleteUserDto.ids().stream().map(UUID::fromString).toList();
         userRepository.deleteAllById(uuidList);
     }
 
